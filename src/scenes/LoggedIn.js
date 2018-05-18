@@ -10,6 +10,10 @@ class LoggedIn extends Component {
     super(props);
   }
 
+  handleTabFocus = () => {
+
+  }
+
   render() {
     const TabNavigation = TabNavigator(
       {
@@ -20,26 +24,14 @@ class LoggedIn extends Component {
           screen: AddEvent
         },
         Profile: {
-          screen: props => {
-            return <Profile onLogout={this.props.onLogout} />;
-          }
+          screen: props => <Profile {...props} onLogout={this.props.onLogout} />
         }
       },
       {
         navigationOptions: ({ navigation }) => ({
-          tabBarIcon: () => {
-            const { routeName } = navigation.state;
-            switch (routeName) {
-              case "Home":
-                break;
-              case "AddEvent":
-                break;
-              case "Profile":
-                break;
-            }
-          },
           tabBarOnPress: ({ scene, jumpToIndex }) => {
-            console.log('onPress:', scene.route);
+            // console.log('onPress:', navigation.state.params);
+            
             jumpToIndex(scene.index);
           },
         }),

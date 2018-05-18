@@ -3,21 +3,45 @@ import { StyleSheet, View, Button, SafeAreaView, Text, FlatList } from "react-na
 import { getUserEvents, deleteEvent } from "../api/events.js";
 
 class Profile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userEvents: []
     };
+    // this.props.navigation.setParams({
+    //   onTabFocus: this.handleTabFocus
+    // });
   }
 
-  componentDidMount() {
+  handleTabFocus = () => {
     const callback = userEvents => {
       this.setState({ userEvents });
     };
     getUserEvents(callback);
   }
 
+  // onTabFocus = () => {
+  
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   this.handleTabFocus();
+  // }
+
+  componentDidMount() {
+    // this.handleTabFocus();
+    // console.log(this.props);
+    // this.props.navigation.setParams({
+    //   onTabFocus: this.handleTabFocus
+    // });
+  }
+
   render() {
+    // if (typeof this.props.navigation.state.params === 'undefined') {
+    //   return null;
+    // }
+    this.handleTabFocus();
+    console.log(this.props);
     return (
       <SafeAreaView style={styles.container}>
         <FlatList

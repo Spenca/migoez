@@ -4,21 +4,45 @@ import { MapView } from "expo";
 import { getAllEvents } from "../api/events.js";
 
 class Map extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       markers: []
     };
+    // this.props.navigation.setParams({
+    //   onTabFocus: this.handleTabFocus
+    // });
   }
 
-  componentDidMount() {
+  handleTabFocus = () => {
     const callback = markers => {
       this.setState({ markers });
     };
     getAllEvents(callback);
   }
 
+  // onTabFocus = () => {
+  
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   this.handleTabFocus();
+  // }
+
+  // componentDidMount() {
+    
+  //   this.handleTabFocus();
+  //   // this.props.navigation.setParams({
+  //   //   onTabFocus: this.handleTabFocus
+  //   // });
+  // }
+
   render() {
+    // if (typeof this.props.navigation.state.params === 'undefined') {
+    //   return null;
+    // }
+    this.handleTabFocus();
+    console.log(this.props);
     return (
       <SafeAreaView style={styles.container}>
         <MapView
