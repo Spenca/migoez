@@ -32,9 +32,16 @@ class Map extends Component {
   //   this.handleTabFocus();
   // }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.navigation.isFocused == this.props.navigation.isFocused) {
+      console.log('yeet2');
+    }
+  }
+
   componentDidMount() {
     
     this.handleTabFocus();
+    console.log(this.props.navigation.isFocused);
     // this.props.navigation.setParams({
     //   onTabFocus: this.handleTabFocus
     // });

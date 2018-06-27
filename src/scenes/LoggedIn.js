@@ -31,7 +31,10 @@ class LoggedIn extends Component {
         navigationOptions: ({ navigation }) => ({
           tabBarOnPress: ({ scene, jumpToIndex }) => {
             // console.log('onPress:', navigation.state.params);
-            
+            console.log('onPress:', scene.route);
+            if (scene.focused) {
+              console.log('yeet');
+            }
             jumpToIndex(scene.index);
           },
         }),
