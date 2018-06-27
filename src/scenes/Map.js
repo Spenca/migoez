@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { StyleSheet, SafeAreaView } from "react-native";
-import { MapView } from "expo";
+import { MapView, Location, Permissions } from "expo";
 import { getAllEvents } from "../api/events.js";
 
 class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: []
+      markers: [],
+      location: null
     };
     // this.props.navigation.setParams({
     //   onTabFocus: this.handleTabFocus
@@ -19,6 +20,8 @@ class Map extends Component {
       this.setState({ markers });
     };
     getAllEvents(callback);
+
+    this.getLocationAsync();
   }
 
   // onTabFocus = () => {
@@ -29,27 +32,37 @@ class Map extends Component {
   //   this.handleTabFocus();
   // }
 
-  // componentDidMount() {
+  componentDidMount() {
     
-  //   this.handleTabFocus();
-  //   // this.props.navigation.setParams({
-  //   //   onTabFocus: this.handleTabFocus
-  //   // });
-  // }
+    this.handleTabFocus();
+    // this.props.navigation.setParams({
+    //   onTabFocus: this.handleTabFocus
+    // });
+  }
+
+  getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== "granted") {
+      console.log("Permission is not granted");
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ location });
+  };
 
   render() {
     // if (typeof this.props.navigation.state.params === 'undefined') {
     //   return null;
     // }
-    this.handleTabFocus();
+    // this.handleTabFocus();
     // console.log(this.props);
-    return (
+    return this.state.location === null ? null : (
       <SafeAreaView style={styles.container}>
         <MapView
           style={styles.map}
-          initialRegion={{
-            latitude: 49.2625998,
-            longitude: -123.1193748,
+          region={{
+            latitude: this.state.location.coords.latitude,
+            longitude: this.state.location.coords.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421
           }}

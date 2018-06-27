@@ -40,7 +40,7 @@ class Profile extends Component {
     // if (typeof this.props.navigation.state.params === 'undefined') {
     //   return null;
     // }
-    this.handleTabFocus();
+    // this.handleTabFocus();
     // console.log(this.props);
     return (
       <SafeAreaView style={styles.container}>
