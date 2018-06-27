@@ -42,7 +42,7 @@ class Map extends Component {
     //   return null;
     // }
     this.handleTabFocus();
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <SafeAreaView style={styles.container}>
         <MapView

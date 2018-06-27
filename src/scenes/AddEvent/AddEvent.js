@@ -72,7 +72,7 @@ class AddEvent extends Component {
     //   return null;
     // }
     this.handleTabFocus();
-    console.log(this.props);
+    // console.log(this.props);
     const locationOnPress = (data, details = null) => {
       this.setState({
         coords: details.geometry.location,
