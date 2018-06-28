@@ -28,23 +28,7 @@ class AddEvent extends Component {
       userId: getUserId(),
       selectingLocation: false
     };
-    // this.props.navigation.setParams({
-    //   onTabFocus: this.handleTabFocus
-    // });
-    // console.log(this.props);
   }
-
-  handleTabFocus = () => {
-    // do nothing for now
-  }
-
-  // onTabFocus = () => {
-  
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   this.handleTabFocus();
-  // }
 
   checkFieldsThenSend() {
     if (this.state.title === "") {
@@ -68,11 +52,6 @@ class AddEvent extends Component {
   }
 
   render() {
-    // if (typeof this.props.navigation.state.params === 'undefined') {
-    //   return null;
-    // }
-    this.handleTabFocus();
-    // console.log(this.props);
     const locationOnPress = (data, details = null) => {
       this.setState({
         coords: details.geometry.location,

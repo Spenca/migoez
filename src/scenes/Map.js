@@ -10,41 +10,7 @@ class Map extends Component {
       markers: [],
       location: null
     };
-    // this.props.navigation.setParams({
-    //   onTabFocus: this.handleTabFocus
-    // });
-  }
-
-  handleTabFocus = () => {
-    const callback = markers => {
-      this.setState({ markers });
-    };
-    getAllEvents(callback);
-
-    this.getLocationAsync();
-  }
-
-  // onTabFocus = () => {
-  
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   this.handleTabFocus();
-  // }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.navigation.isFocused == this.props.navigation.isFocused) {
-      console.log('yeet2');
-    }
-  }
-
-  componentDidMount() {
-    
-    this.handleTabFocus();
-    console.log(this.props.navigation.isFocused);
-    // this.props.navigation.setParams({
-    //   onTabFocus: this.handleTabFocus
-    // });
+    this._sub = 0
   }
 
   getLocationAsync = async () => {
@@ -57,12 +23,24 @@ class Map extends Component {
     this.setState({ location });
   };
 
+  handleTabFocus = () => {
+    const callback = markers => {
+      this.setState({ markers });
+    };
+    getAllEvents(callback);
+    this.getLocationAsync();
+  }
+
+  componentDidMount() {  
+    const willFocusSubscription = this.props.navigation.addListener(
+      "willFocus",
+      payload => {
+        this.handleTabFocus();
+      }
+    );
+  }
+
   render() {
-    // if (typeof this.props.navigation.state.params === 'undefined') {
-    //   return null;
-    // }
-    // this.handleTabFocus();
-    // console.log(this.props);
     return this.state.location === null ? null : (
       <SafeAreaView style={styles.container}>
         <MapView

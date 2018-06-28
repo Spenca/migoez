@@ -8,9 +8,6 @@ class Profile extends Component {
     this.state = {
       userEvents: []
     };
-    // this.props.navigation.setParams({
-    //   onTabFocus: this.handleTabFocus
-    // });
   }
 
   handleTabFocus = () => {
@@ -20,33 +17,31 @@ class Profile extends Component {
     getUserEvents(callback);
   }
 
-  // onTabFocus = () => {
-  
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   this.handleTabFocus();
-  // }
+  handleDelete = (eventId) => {
+    deleteEvent(eventId);
+    this.props.navigation.navigate("Map");
+  }
 
   componentDidMount() {
-    // this.handleTabFocus();
-    // console.log(this.props);
-    // this.props.navigation.setParams({
-    //   onTabFocus: this.handleTabFocus
-    // });
+    const willFocusSubscription = this.props.navigation.addListener(
+      "willFocus",
+      payload => {
+        console.log("profile loaded");
+        this.handleTabFocus();
+      }
+    );
+  }
+
+  componentWillReceiveProps() {
+    console.log("rerender here");
   }
 
   render() {
-    // if (typeof this.props.navigation.state.params === 'undefined') {
-    //   return null;
-    // }
-    this.handleTabFocus();
-    // console.log(this.props);
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
           data={this.state.userEvents}
-          renderItem={({item}) => <Button title={item.title} onPress={() => deleteEvent(item.id)} />}
+          renderItem={({item}) => <Button title={item.title} onPress={() => this.handleDelete(item.id)} />}
           keyExtractor={(item, index) => item.title}
         />
         <Button style={styles.button} onPress={this.props.onLogout} title="Log Out" />

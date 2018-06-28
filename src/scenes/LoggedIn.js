@@ -10,14 +10,10 @@ class LoggedIn extends Component {
     super(props);
   }
 
-  handleTabFocus = () => {
-
-  }
-
   render() {
     const TabNavigation = TabNavigator(
       {
-        Home: {
+        Map: {
           screen: Map
         },
         AddEvent: {
@@ -28,16 +24,6 @@ class LoggedIn extends Component {
         }
       },
       {
-        navigationOptions: ({ navigation }) => ({
-          tabBarOnPress: ({ scene, jumpToIndex }) => {
-            // console.log('onPress:', navigation.state.params);
-            console.log('onPress:', scene.route);
-            if (scene.focused) {
-              console.log('yeet');
-            }
-            jumpToIndex(scene.index);
-          },
-        }),
         tabBarComponent: TabBarBottom,
         tabBarPosition: "bottom",
         animationEnabled: true,
