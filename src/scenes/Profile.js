@@ -19,7 +19,7 @@ class Profile extends Component {
 
   handleDelete = (eventId) => {
     deleteEvent(eventId);
-    this.props.navigation.navigate("Map");
+    this.handleTabFocus()
   }
 
   componentDidMount() {
@@ -33,10 +33,13 @@ class Profile extends Component {
   }
 
   componentWillReceiveProps() {
-    console.log("rerender here");
+    console.log("receive");
+    this.handleTabFocus();
   }
 
   render() {
+    console.log("render");
+    console.log(this.state.userEvents.length)
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
