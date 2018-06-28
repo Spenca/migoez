@@ -18,28 +18,22 @@ class Profile extends Component {
   }
 
   handleDelete = (eventId) => {
-    deleteEvent(eventId);
-    this.handleTabFocus()
+    const callback = () => {
+      this.handleTabFocus();
+    };
+    deleteEvent(eventId, callback);
   }
 
   componentDidMount() {
     const willFocusSubscription = this.props.navigation.addListener(
       "willFocus",
       payload => {
-        console.log("profile loaded");
         this.handleTabFocus();
       }
     );
   }
 
-  componentWillReceiveProps() {
-    console.log("receive");
-    this.handleTabFocus();
-  }
-
   render() {
-    console.log("render");
-    console.log(this.state.userEvents.length)
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
