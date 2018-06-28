@@ -24,7 +24,7 @@ class AddEvent extends Component {
       coords: {},
       location: "",
       startTime: moment(),
-      endTime: moment(),
+      endTime: moment().add(1, 'hours'),
       userId: getUserId(),
       selectingLocation: false
     };
