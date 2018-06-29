@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, SafeAreaView } from "react-native";
+import { StyleSheet, SafeAreaView, Text } from "react-native";
 import { MapView, Location, Permissions } from "expo";
 import { getAllEvents } from "../api/events.js";
 
@@ -61,7 +61,13 @@ class Map extends Component {
               }}
               title={marker.title}
               description={marker.description}
-            />
+            >
+              <MapView.Callout>
+                <Text> {marker.title} </Text>
+                <Text> {marker.description} </Text>
+                <Text> {marker.location} </Text>
+              </MapView.Callout>
+            </MapView.Marker>
           ))}
         </MapView>
       </SafeAreaView>
