@@ -62,6 +62,7 @@ class Map extends Component {
                 <Text> {marker.title} </Text>
                 <Text> {marker.description} </Text>
                 <Text> {marker.location} </Text>
+                <Text> {marker.startTime} </Text>
               </MapView.Callout>
             </MapView.Marker>
           ))}
