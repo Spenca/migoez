@@ -24,6 +24,14 @@ class LoggedIn extends Component {
         }
       },
       {
+        navigationOptions: ({ navigation }) => ({
+          tabBarOnPress: ({ scene, jumpToIndex }) => {
+            if (scene.index == 0) {
+              navigation.state.params.handleTabFocus();
+            }
+            jumpToIndex(scene.index);
+          },
+        }),
         tabBarComponent: TabBarBottom,
         tabBarPosition: "bottom",
         animationEnabled: true,

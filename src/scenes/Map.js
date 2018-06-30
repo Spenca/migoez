@@ -32,12 +32,8 @@ class Map extends Component {
   }
 
   componentDidMount() {  
-    const willFocusSubscription = this.props.navigation.addListener(
-      "willFocus",
-      payload => {
-        this.handleTabFocus();
-      }
-    );
+    this.handleTabFocus()
+    this.props.navigation.setParams({ handleTabFocus: this.handleTabFocus });
   }
 
   render() {
