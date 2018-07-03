@@ -10,18 +10,31 @@ admin.initializeApp();
 //  response.send("Hello from Firebase!");
 // });
 
-exports.deleteOldItems = functions.database.ref('/events/{pushId}').onWrite((change) => {
-  const ref = change.after.ref.parent; // reference to the parent
+// whenever a new event is added, delete events with past endTimes
+exports.deleteExpiredEvents = functions.database.ref('/events/{pushId}').onWrite((change) => {
+  const eventsRef = change.after.ref.parent; // reference to the parent
   const now = moment().valueOf();
-  const oldItemsQuery = ref.orderByChild('endTimeMilliseconds').endAt(now);
-  console.log(oldItemsQuery);
-  return oldItemsQuery.once('value').then((snapshot) => {
+  const eventsQuery = eventsRef.orderByChild('endTimeMilliseconds').endAt(now);
+  return eventsQuery.once('value').then((eventsSnapshot) => {
     // create a map with all children that need to be removed
-    const updates = {};
-    snapshot.forEach(child => {
-      updates[child.key] = null;
+    const eventsUpdates = {};
+    eventsSnapshot.forEach(child => {
+      eventsUpdates[child.key] = null;
     });
-    // execute all updates in one go and return the result to end the function
-    return ref.update(updates);
+    // execute all updates in one go
+    eventsRef.update(eventsUpdates);
+    
+  	const locationsRef = change.after.ref.root.child('locations');
+    return locationsRef.once('value').then((locationsSnapshot) => {
+	    // create a map with all children that need to be removed
+	    const locationsUpdates = {};
+	    locationsSnapshot.forEach(child => {
+	      if (child.key in eventsUpdates) {
+	      	locationsUpdates[child.key] = null;
+	      }
+	    });
+	    // execute updates and return the result to end the function
+	    return locationsRef.update(locationsUpdates);
+	  });
   });
 });
